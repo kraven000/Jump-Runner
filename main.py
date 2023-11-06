@@ -25,13 +25,12 @@ game_surface = text.render("Jump!!",True,"Black")
 gravity = 12
 condition = True
 while True:
-    if condition:
-        for event in pygame.event.get():
-            if event.type==pygame.QUIT:
-                exit()
-            if character_rec.bottom==340:
-                if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
-                    gravity = -20
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            exit()
+        if character_rec.bottom==340:
+            if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
+                gravity = -20
 
     if condition:        
         #Static 
@@ -61,11 +60,12 @@ while True:
         screen.fill("Yellow")
         game_over = text.render("GAME OVER!!!",True,"Red")
         game_over1 = text.render("PRESS SPACE TO RESTART THE GAME",True,"Red")
-        game_over2 = text.render("PRESS Q IF YOU WANT TO EXIT",True,"Red")
-
         screen.blit(game_over,(0,0))
         screen.blit(game_over1,(0,100))
-        screen.blit(game_over2,(5,200))
-        
+        for event in pygame.event.get():
+            if event.type==pygame.K_SPACE:
+                condition = True
+            if event.type==pygame.K_SPACE:
+                condition = True
     pygame.display.update()
-    clock.tick(70)
+    clock.tick(60)
