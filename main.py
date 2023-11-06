@@ -1,14 +1,4 @@
 import pygame
-from tkinter import*
-
-def restart():
-    root = Tk()
-    root.geometry("100x100")
-    Label(root,text="GAME OVER!!").grid(row=1,column=2)
-    Button(root,text="Restart").grid(row=3, column=2)
-    Button(root,text="Exit").grid(row=5, column=2)
-    root.mainloop()
-
 
 pygame.init()
 # Setting up Screen, fps and Title
