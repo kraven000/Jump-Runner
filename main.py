@@ -135,7 +135,8 @@ try:
     if __name__ == "__main__":
         start()
 except Exception as e:
-    if e==ModuleNotFoundError:
-        system("pip install > requirements.txt")
-    else:
-        print("Please Intall Python than")
+    system("pip install -r requirements.txt")
+    print()
+    print()
+    print()
+    print("If you still encounter this error reinstall python and than try")
