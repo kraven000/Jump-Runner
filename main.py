@@ -136,7 +136,6 @@ try:
     if __name__ == "__main__":
         start()
 except Exception as e:
-    
     if e==ModuleNotFoundError():
         system("pip install > requirements.txt")
     else:
