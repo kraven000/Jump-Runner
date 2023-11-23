@@ -1,10 +1,9 @@
 # The code you provided is a Python script that implements a simple game called "Jump Runner" using
 # the Pygame library and the Tkinter library for the GUI.
-
+from os import system
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button
-    from os import system
     def about():
         read = None
         with open("about.txt") as f:
@@ -136,7 +135,7 @@ try:
     if __name__ == "__main__":
         start()
 except Exception as e:
-    if e==ModuleNotFoundError():
+    if e==ModuleNotFoundError:
         system("pip install > requirements.txt")
     else:
         print("Please Intall Python than")
