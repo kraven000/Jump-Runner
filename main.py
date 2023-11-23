@@ -139,4 +139,4 @@ except Exception as e:
     print()
     print()
     print()
-    print("If you still encounter this error reinstall python and than try")
+    print("Rerun your Program\nIf you still encounter this error reinstall python and than try")
