@@ -135,7 +135,7 @@ try:
     if __name__ == "__main__":
         start()
 except Exception as e:
-    system("pip install -r requirements.txt")
+    system("pip install -r requirement.txt")
     print()
     print()
     print()
