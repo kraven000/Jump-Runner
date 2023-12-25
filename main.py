@@ -141,7 +141,7 @@ try:
                     if int(score)>int(ini_score):
                         with open("highscore.txt","w") as f:
                             f.write(str(score))
-                            system("""commit -a -m"commting highscore.txt""")
+                            system("""git commit -a -m"commting highscore.txt""")
                         condition = False
             else:
                 screen.fill("Yellow")
