@@ -1,13 +1,11 @@
 # The code you provided is a Python script that implements a simple game called "Jump Runner" using
 # the Pygame library and the Tkinter library for the GUI.
 from os import system
-from multiprocessing import Process
 from time import sleep
 
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button
-    from playsound import playsound
     
     
     def countdown():
