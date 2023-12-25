@@ -27,24 +27,23 @@
 #     sky_rect.x += 2
 #     if sky_rect.x>30:
 #         sky_rect.x = -34
-    
+
 #     pygame.display.update()
 #     clock.tick(40)
 
 
+
+
 from time import sleep
-def countdown(timee):
+def count_down():
+    interval = 1
     count = 0
+    time = 60
     while True:
-        count += 1.0
+        count += 1
+        if count == (time*interval):
+            interval += 1
+            print(count)
         sleep(1)
-        if count==timee:
-            break
 
-countdown(5.0)
-
-# while True:
-#     a = time()
-#     print(a)
-#     if a==60.0:
-#         break
+count_down()

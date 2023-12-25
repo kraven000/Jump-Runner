@@ -2,12 +2,25 @@
 # the Pygame library and the Tkinter library for the GUI.
 from os import system
 from multiprocessing import Process
-from time import time
+from time import sleep
 
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button
     from playsound import playsound
+    
+    
+    def countdown():
+        interval = 1
+        count = 0
+        time = 60
+        while True:
+            count += 1
+            if count == (time*interval):
+                interval += 1
+                print(count)
+            sleep(1)
+
     def about():
         read = None
         with open("about.txt") as f:
@@ -60,10 +73,13 @@ try:
         kill = pygame.mixer.Sound("kill.mp3")
         background_music = pygame.mixer.Sound("background_music.mp3")
         
+        # Intervals
+        interval = 0
+
         score = 0
         gravity = 12
         condition = True
-        enemy_speed = 4
+        enemy_speed = 4.0
         
         while True:
             for event in pygame.event.get():
@@ -73,6 +89,7 @@ try:
                 if condition:
                     if character_rec.bottom==340:
                         if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
+                            score += 2
                             gravity = -20
                             jump.play()
                 else:   
@@ -80,13 +97,14 @@ try:
                         exit()        
                     if event.type==pygame.KEYUP:
                             condition = True
+                            enemy_speed = 4.0
                             score = 0
                             enemy_rec.x=700
                             character_rec.x = 12
 
             if condition:
                 # background_music.play()
-                score += 1       
+                interval += 1
                 #Static 
                 screen.blit(sky_surface,sky_rec)
                 
@@ -96,16 +114,12 @@ try:
                 screen.blit(score_card,(500,30))
                 screen.blit(enemy_surface,enemy_rec)
                 
-                
-                if score>=500:
-                    enemy_rec.x -= 4.5
-                elif score>=1000:
-                    enemy_rec.x -= 5.5
-                elif score>=1500:
-                    enemy_rec.x -= 6.5
-                else:
-                    enemy_rec.x -= enemy_speed
-                
+                # Enemy speed
+                enemy_rec.x -= enemy_speed
+                if score>=60:
+                    if score%60==0:
+                        enemy_speed += 0.5
+
                 if enemy_rec.x<=0:
                     enemy_rec.x = 700
                     
