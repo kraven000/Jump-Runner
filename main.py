@@ -1,9 +1,13 @@
 # The code you provided is a Python script that implements a simple game called "Jump Runner" using
 # the Pygame library and the Tkinter library for the GUI.
 from os import system
+from multiprocessing import Process
+from time import time
+
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button
+    from playsound import playsound
     def about():
         read = None
         with open("about.txt") as f:
@@ -28,7 +32,7 @@ try:
         Label(root,text=str(score),font="Roman 24 bold",fg="white",bg="black",relief="groove",border=10,borderwidth=10).place(x=0,y=0,relheight=1,relwidth=1)
         root.mainloop()
         
-
+        
     def game():
         pygame.init()
         # Setting up Screen, fps and Title
@@ -51,18 +55,26 @@ try:
         text = pygame.font.Font("ArchitectsDaughter-Regular.ttf",40)
         game_surface = text.render("Jump!!",True,"Black")  
 
+        # Sound
+        jump = pygame.mixer.Sound("jump.mp3")
+        kill = pygame.mixer.Sound("kill.mp3")
+        background_music = pygame.mixer.Sound("background_music.mp3")
+        
         score = 0
         gravity = 12
         condition = True
+        enemy_speed = 4
+        
         while True:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
-                    exit()
+                    # exit()
                 if condition:
                     if character_rec.bottom==340:
                         if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
                             gravity = -20
+                            jump.play()
                 else:   
                     if event.type==pygame.QUIT:
                         exit()        
@@ -72,7 +84,8 @@ try:
                             enemy_rec.x=700
                             character_rec.x = 12
 
-            if condition: 
+            if condition:
+                # background_music.play()
                 score += 1       
                 #Static 
                 screen.blit(sky_surface,sky_rec)
@@ -82,7 +95,17 @@ try:
                 score_card = text.render(F"SCORE:-{score}",True,"Black")
                 screen.blit(score_card,(500,30))
                 screen.blit(enemy_surface,enemy_rec)
-                enemy_rec.x -= 3.5
+                
+                
+                if score>=500:
+                    enemy_rec.x -= 4.5
+                elif score>=1000:
+                    enemy_rec.x -= 5.5
+                elif score>=1500:
+                    enemy_rec.x -= 6.5
+                else:
+                    enemy_rec.x -= enemy_speed
+                
                 if enemy_rec.x<=0:
                     enemy_rec.x = 700
                     
@@ -98,6 +121,7 @@ try:
 
                 screen.blit(game_surface,(100,30))
                 if enemy_rec.colliderect(character_rec):
+                    kill.play()
                     condition = False
                     ini_score = None
                     with open("highscore.txt","r") as f:
