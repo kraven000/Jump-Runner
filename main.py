@@ -100,10 +100,10 @@ try:
                 if enemy_rec.colliderect(character_rec):
                     condition = False
                     ini_score = None
-                    with open("Highscore.txt","r") as f:
+                    with open("highscore.txt","r") as f:
                         ini_score = f.read()
                     if int(score)>int(ini_score):
-                        with open("Highscore.txt","w") as f:
+                        with open("highscore.txt","w") as f:
                             f.write(str(score))
                         condition = False
             else:
@@ -132,11 +132,12 @@ try:
         Button(root,text="EXIT",command=exit).place(relheight=0.12,relwidth=0.15,x=345,y=325)
         root.mainloop()
 
-    if __name__ == "__main__":
-        start()
 except Exception as e:
-    system("pip install -r requirement.txt")
+    system("pip3 install -r requirement.txt")
     print()
     print()
     print()
     print("Rerun your Program\nIf you still encounter this error reinstall python and than try")
+
+if __name__ == "__main__":
+    start()
