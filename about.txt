@@ -1,7 +1,18 @@
-We are DreamEclipse Studio.
-This is the first game of this studio.
-we know we need improvement.
-we will improve this game more as it's 
-full extent.
+Special Thanks to:-
 
--DreamEclipse Studio
+1) Pixabay for Jump audio
+    Cartoon Jump:- 
+    https://pixabay.com/sound-effects/search/jump/
+
+2) Pixabay For kill audio
+    Thanks to UNIVERSFIELD For Knife Stab sound:-
+    https://pixabay.com/sound-effects/search/kill/
+
+3) Google fonts for Custom Fonts
+    Thanks to Kimberly Geswein for Architects Daughter-Regular
+    https://fonts.google.com/?query=Architects+Daughter
+
+4) Blogpost.com for Background
+    https://paulmakegames.blogspot.com/2017/07/background.html
+
+5) Paritosh Munge For Game characters

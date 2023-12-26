@@ -52,14 +52,3 @@
 # while True:
 #     playsound("background_music.mp3")
 
-
-from time import sleep
-intervals = 0
-score = 0
-
-while True:
-    intervals += 1
-    print(score)
-    score += int(intervals/60)
-    if score>=100:
-        break
