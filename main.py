@@ -1,28 +1,11 @@
 # The code you provided is a Python script that implements a simple game called "Jump Runner" using
 # the Pygame library and the Tkinter library for the GUI.
-from os import system
-from time import sleep
-from multiprocessing import Process
-from playsound import playsound
-
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button
+    from os import system
 
 
-    def countdown():
-        interval = 1
-        count = 0
-        time = 60
-        while True:
-            count += 1
-            if count == (time*interval):
-                interval += 1
-                print(count)
-            sleep(1)
-    
-    
-    
     def about():
         read = None
         with open("about.txt") as f:
@@ -92,7 +75,7 @@ try:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
-                    exit()
+                    # exit()
                 if condition:
                     if character_rec.bottom==340:
                         if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
@@ -110,7 +93,6 @@ try:
                             character_rec.x = 12
 
             if condition:
-                interval += 1
                 #Static 
                 screen.blit(sky_surface,sky_rec)
                 
@@ -123,15 +105,7 @@ try:
                 # Enemy speed
                 enemy_rec.x -= enemy_speed
                 if score%10==0:
-                    enemy_speed += 1/3600
-                
-                # Debug Purpuse
-                # ------------------------------------
-                with open("debug_speed.txt","r") as f:
-                    if str(enemy_speed)+"\n" not in f.read():
-                        with open("debug_speed.txt","a") as f:
-                            f.write(str(enemy_speed)+"\n")
-                # ------------------------------------
+                    enemy_speed += round(1/3600)
                 
                 if enemy_rec.x<=0:
                     enemy_rec.x = 700
