@@ -22,9 +22,6 @@ try:
             sleep(1)
     
     
-    def background_sound():
-        playsound("background_music.mp3")
-    
     
     def about():
         read = None
@@ -57,7 +54,12 @@ try:
         screen = pygame.display.set_mode((760,428))
         clock = pygame.time.Clock()
         pygame.display.set_caption("Jump Runner")
-
+        
+        # Background Music
+        pygame.mixer.music.load("background.mp3")
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1)
+        
         # Making Image Surfaces,text:- 
         sky_surface = pygame.image.load("sky.png").convert_alpha()
         sky_rec = sky_surface.get_rect(midbottom=(380,340))
@@ -73,25 +75,19 @@ try:
         text = pygame.font.Font("ArchitectsDaughter-Regular.ttf",40)
         game_surface = text.render("Jump!!",True,"Black")  
 
-        # Sound
+        # Sound Effects
         jump = pygame.mixer.Sound("jump.mp3")
         kill = pygame.mixer.Sound("kill.mp3")
-        
-        # Background Music
-        # pygame.mixer.music.load("background_music.mp3")
-        # pygame.mixer.music.set_volume(10)
         
         # Intervals
         interval = 0
 
+        # Miscellaneous
         score = 0
         gravity = 12
         condition = True
         enemy_speed = 4.0
         
-        pygame.mixer.music.load("background_music.mp3")
-        pygame.mixer.music.set_volume(1)
-        pygame.mixer.music.play()
         while True:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
@@ -100,7 +96,6 @@ try:
                 if condition:
                     if character_rec.bottom==340:
                         if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
-                            # background_music.pause()
                             score += 2
                             gravity = -20
                             jump.play()
@@ -115,7 +110,6 @@ try:
                             character_rec.x = 12
 
             if condition:
-                pygame.mixer.music.play()
                 interval += 1
                 #Static 
                 screen.blit(sky_surface,sky_rec)
@@ -128,10 +122,17 @@ try:
                 
                 # Enemy speed
                 enemy_rec.x -= enemy_speed
-                if score>=60:
-                    if score%60==0:
-                        enemy_speed += 0.5
-
+                if score%10==0:
+                    enemy_speed += 1/3600
+                
+                # Debug Purpuse
+                # ------------------------------------
+                with open("debug_speed.txt","r") as f:
+                    if str(enemy_speed)+"\n" not in f.read():
+                        with open("debug_speed.txt","a") as f:
+                            f.write(str(enemy_speed)+"\n")
+                # ------------------------------------
+                
                 if enemy_rec.x<=0:
                     enemy_rec.x = 700
                     
@@ -148,7 +149,6 @@ try:
                 screen.blit(game_surface,(100,30))
                 if enemy_rec.colliderect(character_rec):
                     kill.play()
-                    # pygame.mixer.music.load("kill.mp3")
                     condition = False
                     ini_score = None
                     with open("highscore.txt","r") as f:
@@ -167,7 +167,6 @@ try:
                 screen.blit(game_over1,(0,100))
                 screen.blit(game_over2,(0,200))
             
-            pygame.mixer.music.play()
             pygame.display.update()
             clock.tick(60)
             
@@ -193,7 +192,5 @@ except Exception as e:
     print("Rerun your Program\nIf you still encounter this error reinstall python and than try")
 
 if __name__ == "__main__":
-    # process1 = Process(target=background_music)
-    # process1.start()
     game_start()
     
