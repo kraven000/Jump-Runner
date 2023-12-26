@@ -118,6 +118,7 @@ try:
                 gravity += 1
                 character_rec.y += gravity
                 character_rec.x += 3.5
+                
                 # Setting Character position to default
                 if character_rec.x>=720:
                     character_rec.x = 12
@@ -139,7 +140,7 @@ try:
                     if int(score)>int(ini_score):
                         with open("highscore.txt","w") as f:
                             f.write(str(score))
-                            system("""git commit -a -m"commting highscore.txt" """)
+                        
                         condition = False
             else:
                 # Making Game Over screen
