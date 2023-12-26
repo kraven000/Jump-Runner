@@ -48,23 +48,20 @@ try:
         sky_rec = sky_surface.get_rect(midbottom=(380,340))
         ground_surface = pygame.image.load("ground.png").convert_alpha()
         ground_rec = ground_surface.get_rect(midright=(760,420))
-
+        
         enemy_surface = pygame.image.load("zombie.png")
         enemy_rec = enemy_surface.get_rect(midbottom=(700,345))
         character_surface = pygame.image.load("lufy.png")
         character_rec = character_surface.get_rect(midbottom=(12,340))
-
+        
         #Text
         text = pygame.font.Font("ArchitectsDaughter-Regular.ttf",40)
         game_surface = text.render("Jump!!",True,"Black")  
-
+        
         # Sound Effects
         jump = pygame.mixer.Sound("jump.mp3")
         kill = pygame.mixer.Sound("kill.mp3")
         
-        # Intervals
-        interval = 0
-
         # Miscellaneous
         score = 0
         gravity = 12
