@@ -2,12 +2,14 @@
 # the Pygame library and the Tkinter library for the GUI.
 from os import system
 from time import sleep
+from multiprocessing import Process
+from playsound import playsound
 
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button
-    
-    
+
+
     def countdown():
         interval = 1
         count = 0
@@ -18,7 +20,12 @@ try:
                 interval += 1
                 print(count)
             sleep(1)
-
+    
+    
+    def background_sound():
+        playsound("background_music.mp3")
+    
+    
     def about():
         read = None
         with open("about.txt") as f:
@@ -69,7 +76,10 @@ try:
         # Sound
         jump = pygame.mixer.Sound("jump.mp3")
         kill = pygame.mixer.Sound("kill.mp3")
-        background_music = pygame.mixer.Sound("background_music.mp3")
+        
+        # Background Music
+        # pygame.mixer.music.load("background_music.mp3")
+        # pygame.mixer.music.set_volume(10)
         
         # Intervals
         interval = 0
@@ -79,18 +89,22 @@ try:
         condition = True
         enemy_speed = 4.0
         
+        pygame.mixer.music.load("background_music.mp3")
+        pygame.mixer.music.set_volume(1)
+        pygame.mixer.music.play()
         while True:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
-                    # exit()
+                    exit()
                 if condition:
                     if character_rec.bottom==340:
                         if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
+                            # background_music.pause()
                             score += 2
                             gravity = -20
                             jump.play()
-                else:   
+                else:
                     if event.type==pygame.QUIT:
                         exit()        
                     if event.type==pygame.KEYUP:
@@ -101,7 +115,7 @@ try:
                             character_rec.x = 12
 
             if condition:
-                # background_music.play()
+                pygame.mixer.music.play()
                 interval += 1
                 #Static 
                 screen.blit(sky_surface,sky_rec)
@@ -134,6 +148,7 @@ try:
                 screen.blit(game_surface,(100,30))
                 if enemy_rec.colliderect(character_rec):
                     kill.play()
+                    # pygame.mixer.music.load("kill.mp3")
                     condition = False
                     ini_score = None
                     with open("highscore.txt","r") as f:
@@ -151,12 +166,13 @@ try:
                 screen.blit(game_over,(0,0))
                 screen.blit(game_over1,(0,100))
                 screen.blit(game_over2,(0,200))
-                
+            
+            pygame.mixer.music.play()
             pygame.display.update()
             clock.tick(60)
             
 
-    def start():
+    def game_start():
         root = Tk()
         root.minsize(760,428)
         root.maxsize(760,428)
@@ -177,4 +193,7 @@ except Exception as e:
     print("Rerun your Program\nIf you still encounter this error reinstall python and than try")
 
 if __name__ == "__main__":
-    start()
+    # process1 = Process(target=background_music)
+    # process1.start()
+    game_start()
+    
