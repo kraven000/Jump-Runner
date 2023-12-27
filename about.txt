@@ -1,18 +1,32 @@
 Special Thanks to:-
 
-1) Pixabay for Jump audio
-    Cartoon Jump:- 
+1) Pixabay for Jump audio, kill audio, Music Image, 
+   Sound Image and Background Music
+   
+    Cartoon Jump audio (used as Jump Audio):- 
     https://pixabay.com/sound-effects/search/jump/
 
-2) Pixabay For kill audio
-    Thanks to UNIVERSFIELD For Knife Stab sound:-
-    https://pixabay.com/sound-effects/search/kill/
+    Knife Stab (used as kill audio):- 
+    https://pixabay.com/sound-effects/search/kill/\
 
-3) Google fonts for Custom Fonts
+    gameMusic (used as Background Music):- 
+    https://pixabay.com/sound-effects/search/game%20background/
+
+    music note Icon (used as Music Image Icon):- 
+    Thanks To Stephan for Music Image
+    https://pixabay.com/vectors/music-note-icon-1085655/
+
+    speaker sound loud loudspeaker (used as Sound Image Icon):- 
+    Thanks To Clker-Free-Vector-Images For Sound Image
+    https://pixabay.com/vectors/speaker-sound-loud-loudspeaker-310810/
+
+
+2) Google fonts for Custom Fonts
     Thanks to Kimberly Geswein for Architects Daughter-Regular
     https://fonts.google.com/?query=Architects+Daughter
 
-4) Blogpost.com for Background
+3) Blogpost.com for Background
     https://paulmakegames.blogspot.com/2017/07/background.html
 
-5) Paritosh Munge For Game characters
+4) Paritosh Munge For Game characters
+
