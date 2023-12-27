@@ -5,7 +5,6 @@
 
 Jump Runner is a simple game built using Python, Pygame, and Tkinter. It involves a character jumping over obstacles and scoring points based on successful jumps.
 
-![Game Preview](link-to-game-preview-image.png)
 
 ## Features
 
@@ -30,7 +29,7 @@ Jump Runner is a simple game built using Python, Pygame, and Tkinter. It involve
 
 1. Run the game:
    ```bash
-   python main.py
+   python3 main.py
    ```
 
 2. Follow the on-screen instructions to start, toggle settings, and play the game.
