@@ -20,19 +20,20 @@ Jump Runner is a simple game built using Python, Pygame, and Tkinter. It involve
    git clone https://github.com/your-username/jump-runner.git
    ```
 
-2. Install dependencies:
-   ```bash
-   pip3 install -r requirements.txt
-   ```
-
 ## Usage
 
 1. Run the game:
    ```bash
+   cd Jump-Runner
+   ```
+   ```bash
+   pip3 install -r requirements.txt
+   ```
+   ```bash
    python3 main.py
    ```
 
-2. Follow the on-screen instructions to start, toggle settings, and play the game.
+3. Follow the on-screen instructions to start, toggle settings, and play the game.
 
 ## Controls
 
