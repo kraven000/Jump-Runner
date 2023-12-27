@@ -1,24 +1,42 @@
 # The code you provided is a Python script that implements a simple game called "Jump Runner" using
 # the Pygame library and the Tkinter library for the GUI.
+
 try:
     import pygame
-    from tkinter import Tk,PhotoImage,Label,Button,messagebox
+    from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox
     from os import system
 
-
+    
     def about():
         '''Making a About window. If the user press ABout Button. It will show About sections or Credits.'''
         
-        read = None
-        with open("about.txt") as f:
-            read = f.read()
         root = Tk()
+        # Setting Up Geometry and Title
         root.title("Jump Runner")
-        root.minsize(750,410)
-        root.maxsize(750,410)
-        Label(root,text=str(read),font="Helvetica 16 bold",bg="black",fg="white",relief="sunken",border=6,borderwidth=6).grid(row=0,column=0)
+        root.minsize(800,400)
+        root.maxsize(800,400)
+        
+        # Setting Up ScrollBar 
+        scrollbar = Scrollbar(root)
+        scrollbar.pack(side="right", fill="y")
+        
+        # Setting Up Widget
+        listbox = Listbox(root,height=400,width=640,font="Harrington 12 bold",bg="black",fg="wheat",yscrollcommand = scrollbar.set)
+        
+        with open("about.txt","r") as f:
+            read = f.readlines()
+            read = list(map(lambda x:x.strip("\n"),read))
+        
+        for i in read:
+            listbox.insert("end",i)
+        
+        # Packing and configuring the widget and scrollbar
+        listbox.pack(fill="both")
+        scrollbar.config(command=listbox.yview)
+        
         root.mainloop()
-
+    
+    
     def music():
         '''It is function which will control Music if User press music button.'''
         
@@ -70,15 +88,16 @@ try:
     def highscore():
         '''Making a Highscore window. If user press Highscore button, the highscore will be shown.'''
         
-        score = None
         with open("configuration.txt","r") as f:
             score = str(f.readlines()[0].strip("\n"))
+        
         root = Tk()
         root.title("Jump Runner")
         root.minsize(200,100)
         root.maxsize(200,100)
         
         Label(root,text=score,font="Roman 24 bold",fg="white",bg="black",relief="groove",border=10,borderwidth=10).place(x=0,y=0,relheight=1,relwidth=1)
+        
         root.mainloop()
 
 
@@ -86,8 +105,9 @@ try:
         '''It is main function where the game logic is written and it will execute the function if the user press start'''
         
         pygame.init()
+        
         # Setting up Screen, fps and Title
-        screen = pygame.display.set_mode((760,428))
+        screen = pygame.display.set_mode((800,500))
         clock = pygame.time.Clock()
         pygame.display.set_caption("Jump Runner")
         
@@ -107,13 +127,13 @@ try:
         # Making Image Surfaces,text:- 
         # Background
         background = pygame.image.load("combined.png").convert_alpha()
-        background_rect = background.get_rect(midbottom=(380,530))
+        background_rect = background.get_rect(midbottom=(380,580))
         
         # Game Characters
         enemy_surface = pygame.image.load("zombie.png")
-        enemy_rec = enemy_surface.get_rect(midbottom=(700,345))
+        enemy_rec = enemy_surface.get_rect(midbottom=(790,400))
         character_surface = pygame.image.load("character.png")
-        character_rec = character_surface.get_rect(midbottom=(12,340))
+        character_rec = character_surface.get_rect(midbottom=(10,400))
         
         #Text
         text = pygame.font.Font("ArchitectsDaughter-Regular.ttf",40)
@@ -121,7 +141,7 @@ try:
         
         # Miscellaneous
         score = 0
-        gravity = 12
+        gravity = 13
         condition = True
         enemy_speed = 4.0
         
@@ -129,9 +149,9 @@ try:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
                     pygame.quit()
-                    # exit()
+                    
                 if condition:
-                    if character_rec.bottom==340:
+                    if character_rec.bottom==400:
                         if event.type==pygame.KEYUP or event.type==pygame.K_SPACE:
                             # Tracking Score
                             score += 2
@@ -146,13 +166,13 @@ try:
                 else:
                     if event.type==pygame.QUIT:
                         pygame.quit()
-                        # exit()        
+
                     if event.type==pygame.KEYUP:
                             # Making Condition's Default if user restart the game
                             condition = True
                             enemy_speed = 4.0
                             score = 0
-                            enemy_rec.x=700
+                            enemy_rec.x=800
                             character_rec.x = 12
 
             if condition:
@@ -172,8 +192,8 @@ try:
                     enemy_speed += (1/1000000000)
                 
                 # Setting Enemy Position to default
-                if enemy_rec.x<=0:
-                    enemy_rec.x = 700
+                if enemy_rec.x<=5:
+                    enemy_rec.x = 800
                 
                 # Showing Character & Tracking Speed,Jumps
                 gravity += 1
@@ -181,10 +201,11 @@ try:
                 character_rec.x += 3.5
                 
                 # Setting Character position to default
-                if character_rec.x>=720:
-                    character_rec.x = 12
-                if character_rec.bottom>=340:
-                    character_rec.bottom = 340
+                if character_rec.x>=795:
+                    character_rec.x = 10
+                if character_rec.bottom>=400:
+                    character_rec.bottom = 400
+                
                 screen.blit(character_surface,character_rec)
 
                 # Showing Text
@@ -192,34 +213,42 @@ try:
                 
                 # Checking Collison between two characters
                 if enemy_rec.colliderect(character_rec):
-                    # checking if kill sound should be played or not
-                    with open("configuration.txt","r") as f:
-                        if f.readlines()[2].strip("\n")=="yes":
-                            kill.play()
-                    
                     # To stop the game
                     condition = False
                     
-                    # Two check Highscores
+                    # checking if kill sound should be played or not
                     with open("configuration.txt","r") as f:
                         previous_conf = list(map(lambda x:x.strip("\n"),f.readlines()))
-                        
+                        if previous_conf[2]=="yes":
+                            kill.play()
+                    
+                        # Two check Highscores
                         ini_score = previous_conf[0]
                         
                         if int(score)>int(ini_score):
                             previous_conf[0] = str(score)
+                            
                             with open("configuration.txt","w") as f:
                                 previous_conf = list(map(lambda x:x+"\n",previous_conf))
+                                
                                 f.writelines(previous_conf)
-                            del previous_conf
-                        
-                        condition = False
+                            
+                        del previous_conf
+                    
             else:
                 # Making Game Over screen
                 screen.fill("Yellow")
+                
+                # Message to write Game Over
                 game_over = text.render("GAME OVER!!!",True,"Red")
+                
+                # Message of Instruction how to restart the game
                 game_over1 = text.render("PRESS KEYUP TO RESTART THE GAME",True,"Red")
+                
+                # Message to show the score you jump
                 game_over2 = text.render(f"SCORE:- {score}",True,"Red")
+                
+                # Showing It in Screen
                 screen.blit(game_over,(0,0))
                 screen.blit(game_over1,(0,100))
                 screen.blit(game_over2,(0,200))
@@ -232,9 +261,12 @@ try:
         '''It is the starting Interface of program, where all buttons will be shown.'''
         
         root = Tk()
+        
+        # Setting Up Tittle, Geometry and Icon
         root.minsize(749,419)
         root.maxsize(749,419)
         root.title("Jump Runner")
+        root.iconphoto(False,PhotoImage(file="icon.png"))
         
         # Setting Up Background Image
         background_image = PhotoImage(file="background.png")

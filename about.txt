@@ -3,30 +3,34 @@ Special Thanks to:-
 1) Pixabay for Jump audio, kill audio, Music Image, 
    Sound Image and Background Music
    
-    Cartoon Jump audio (used as Jump Audio):- 
-    https://pixabay.com/sound-effects/search/jump/
+    1.1) jump.mp3 (used as Jump Audio):- 
+         https://pixabay.com/sound-effects/search/jump/
 
-    Knife Stab (used as kill audio):- 
-    https://pixabay.com/sound-effects/search/kill/\
+    1.2) kill.mp3 (used as kill audio):- 
+         https://pixabay.com/sound-effects/search/kill/\
 
-    gameMusic (used as Background Music):- 
-    https://pixabay.com/sound-effects/search/game%20background/
+    1.3) background.mp3 (used as Background Music):- 
+         https://pixabay.com/sound-effects/search/game%20background/
 
-    music note Icon (used as Music Image Icon):- 
-    Thanks To Stephan for Music Image
-    https://pixabay.com/vectors/music-note-icon-1085655/
+    1.4) music_image.png (used as Music Image Icon):- 
+         Thanks To Stephan for music_image.png
+         https://pixabay.com/vectors/music-note-icon-1085655/
 
-    speaker sound loud loudspeaker (used as Sound Image Icon):- 
-    Thanks To Clker-Free-Vector-Images For Sound Image
-    https://pixabay.com/vectors/speaker-sound-loud-loudspeaker-310810/
+    1.5) sound_image.png (used as Sound Image Icon):- 
+         Thanks To Clker-Free-Vector-Images For sound_image.png
+         https://pixabay.com/vectors/speaker-sound-loud-loudspeaker-310810/
 
+    1.6) icon.png (used as ICON for this program)
+         Thanks to madartzgraphics for icon.png
+         https://pixabay.com/illustrations/game-gaming-gaming-console-gamer-1926905/
 
 2) Google fonts for Custom Fonts
     Thanks to Kimberly Geswein for Architects Daughter-Regular
     https://fonts.google.com/?query=Architects+Daughter
 
-3) Blogpost.com for Background
+3) Blogpost.com for combined.png (Used as Game Background)
     https://paulmakegames.blogspot.com/2017/07/background.html
 
 4) Paritosh Munge For Game characters
-
+    4.1) Thanks For character.png
+    4.2) Thanks For zombie.png
