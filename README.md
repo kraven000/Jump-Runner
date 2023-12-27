@@ -22,7 +22,7 @@ Jump Runner is a simple game built using Python, Pygame, and Tkinter. It involve
 
 2. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   pip3 install -r requirements.txt
    ```
 
 ## Usage
