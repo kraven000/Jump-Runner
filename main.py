@@ -4,8 +4,19 @@
 try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox
-    from os import system
+    from os import system 
+    from sys import platform
 
+    def read_write_file(file,mode,text=None):
+        if mode=="r":
+            with open(file,mode) as f:
+                return f.readlines()
+        elif (mode=="w" or mode=="a") and text!=None:
+            with open(file,mode) as f:
+                f.writelines(text)
+        elif text==None:
+            raise TypeError("If you open file in 'w' or 'a'. please specify text." )
+    
     
     def about():
         '''Making a About window. If the user press ABout Button. It will show About sections or Credits.'''
@@ -23,9 +34,7 @@ try:
         # Setting Up Widget
         listbox = Listbox(root,height=400,width=640,font="Harrington 12 bold",bg="black",fg="wheat",yscrollcommand = scrollbar.set)
         
-        with open("about.txt","r") as f:
-            read = f.readlines()
-            read = list(map(lambda x:x.strip("\n"),read))
+        read = list(map(lambda x:x.strip("\n"),read_write_file("about.txt",mode="r")))
         
         for i in read:
             listbox.insert("end",i)
@@ -39,57 +48,48 @@ try:
     
     def music():
         '''It is function which will control Music if User press music button.'''
+    
+        file_txt = read_write_file("configuration.txt","r")
+        if file_txt[1]=="yes\n":
+            resp = messagebox.askyesno(title="MUSIC",message="DO YOU WANT TO SWITCH OFF THE MUSIC?")
+            if resp==True:
+                file_txt[1] = "no\n"
+                read_write_file("configuration.txt","w",file_txt)
+                del resp
         
-        with open("configuration.txt","r") as f:
-            previous_conf = f.readlines()
-            if previous_conf[1].strip("\n")=="yes":
-                resp = messagebox.askyesno(title="MUSIC",message="DO YOU WANT TO SWITCH OFF THE MUSIC?")
-                if resp == True:
-                    # previous_conf = f.readlines()
-                    previous_conf[1] = "no\n"
-                    with open("configuration.txt","w") as f:
-                        f.writelines(previous_conf)
-                        
-            elif previous_conf[1].strip("\n")=="no":
-                resp = messagebox.askyesno(title="MUSIC",message="DO YOU WANT TO SWITCH ON THE MUSIC?")
-                if resp == True:
-                    # previous_conf = f.readlines()
-                    previous_conf[1] = "yes\n"
-                    with open("configuration.txt","w") as f:
-                        f.writelines(previous_conf)
-                        
-            del previous_conf
+        elif file_txt[1]=="no\n":
+            resp = messagebox.askyesno(title="MUSIC",message="DO YOU WANT TO SWITCH ON THE MUSIC?")
+            if resp==True:
+                file_txt[1] = "yes\n"
+                read_write_file("configuration.txt","w",file_txt)
+                del resp
+                del file_txt
 
 
     def sound():
         '''It is function which will control Sound if User press Sound button.'''
         
-        with open("configuration.txt","r") as f:
-            previous_conf = f.readlines()
-            if previous_conf[2].strip("\n")=="yes":
-                resp = messagebox.askyesno(title="SOUND",message="DO YOU WANT TO SWITCH OFF THE SOUND?")
-                if resp == True:
-                    # previous_conf = f.readlines()
-                    previous_conf[2] = "no\n"
-                    with open("configuration.txt","w") as f:
-                        f.writelines(previous_conf)
-                        
-            elif previous_conf[2].strip("\n")=="no":
-                resp = messagebox.askyesno(title="MUSIC",message="DO YOU WANT TO SWITCH ON THE SOUND?")
-                if resp == True:
-                    # previous_conf = f.readlines()
-                    previous_conf[2] = "yes\n"
-                    with open("configuration.txt","w") as f:
-                        f.writelines(previous_conf)
-                        
-            del previous_conf
+        file_txt = read_write_file("configuration.txt","r")
+        if file_txt[2]=="yes\n":
+            resp = messagebox.askyesno(title="SOUND",message="DO YOU WANT TO SWITCH OFF THE SOUND?")
+            if resp==True:
+                file_txt[2] = "no\n"
+                read_write_file("configuration.txt","w",file_txt)
+                del resp
+        
+        elif file_txt[2]=="no\n":
+            resp = messagebox.askyesno(title="SOUND",message="DO YOU WANT TO SWITCH ON THE SOUND?")
+            if resp==True:
+                file_txt[2] = "yes\n"
+                read_write_file("configuration.txt","w",file_txt)
+                del resp
+                del file_txt
 
 
     def highscore():
         '''Making a Highscore window. If user press Highscore button, the highscore will be shown.'''
         
-        with open("configuration.txt","r") as f:
-            score = str(f.readlines()[0].strip("\n"))
+        score = read_write_file("configuration.txt","r")[0].strip("\n")
         
         root = Tk()
         root.title("Jump Runner")
@@ -102,7 +102,7 @@ try:
 
 
     def game():
-        '''It is main function where the game logic is written and it will execute the function if the user press start'''
+        '''It is main function where the game logic is written and it will execute the function/game if the user press start'''
         
         pygame.init()
         
@@ -119,9 +119,9 @@ try:
         kill = pygame.mixer.Sound("kill.mp3")
         
         # Checking if music should be played or not
-        with open("configuration.txt","r") as f:
-            if f.readlines()[1].strip("\n")=="yes":
-                pygame.mixer.music.play(-1)
+        file_txt = read_write_file("configuration.txt","r")
+        if file_txt[1]=="yes\n":
+            pygame.mixer.music.play(-1)
                 
         
         # Making Image Surfaces,text:- 
@@ -135,7 +135,7 @@ try:
         character_surface = pygame.image.load("character.png")
         character_rec = character_surface.get_rect(midbottom=(10,400))
         
-        #Text
+        # Text
         text = pygame.font.Font("ArchitectsDaughter-Regular.ttf",40)
         game_surface = text.render("Jump!!",True,"Black")  
         
@@ -160,9 +160,9 @@ try:
                             gravity = -20
                             
                             # Checking if jump sound should be played
-                            with open("configuration.txt","r") as f:
-                                if f.readlines()[2].strip("\n")=="yes":
-                                    jump.play()
+                            
+                            if file_txt[2]=="yes\n":
+                                jump.play()
                 else:
                     if event.type==pygame.QUIT:
                         pygame.quit()
@@ -189,7 +189,7 @@ try:
                 
                 # It will Gradually Increase Speed Of Characters 
                 if score%4==0 and score!=0:
-                    enemy_speed += (1/1000000000)
+                    enemy_speed += (1/3600)
                 
                 # Setting Enemy Position to default
                 if enemy_rec.x<=5:
@@ -207,7 +207,7 @@ try:
                     character_rec.bottom = 400
                 
                 screen.blit(character_surface,character_rec)
-
+                
                 # Showing Text
                 screen.blit(game_surface,(100,30))
                 
@@ -217,23 +217,17 @@ try:
                     condition = False
                     
                     # checking if kill sound should be played or not
-                    with open("configuration.txt","r") as f:
-                        previous_conf = list(map(lambda x:x.strip("\n"),f.readlines()))
-                        if previous_conf[2]=="yes":
-                            kill.play()
+                    if file_txt[2]=="yes\n":
+                        kill.play()
+
+                    # Two check Highscores
+                    ini_score = file_txt[0]
                     
-                        # Two check Highscores
-                        ini_score = previous_conf[0]
+                    if int(score)>int(ini_score):
+                        file_txt[0] = str(score)+"\n"
                         
-                        if int(score)>int(ini_score):
-                            previous_conf[0] = str(score)
-                            
-                            with open("configuration.txt","w") as f:
-                                previous_conf = list(map(lambda x:x+"\n",previous_conf))
-                                
-                                f.writelines(previous_conf)
-                            
-                        del previous_conf
+                        read_write_file("configuration.txt","w",file_txt)
+                    
                     
             else:
                 # Making Game Over screen
@@ -296,8 +290,10 @@ try:
 
 
 except Exception as e:
-    system("pip3 install -r requirement.txt")
-    print()
+    if platform=="linux":
+        system("pip3 install -r requirement.txt")
+    else:
+        system("pip install -r requirements.txt")
     print()
     print()
     print("Rerun your Program\nIf you still encounter this error reinstall python and than try")
