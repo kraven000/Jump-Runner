@@ -34,3 +34,7 @@ Special Thanks to:-
 4) Paritosh Munge For Game characters
     4.1) Thanks For character.png
     4.2) Thanks For zombie.png
+
+5) Developer Information 
+     name:- Akhilesh Verma
+     GitHub:- https://github.com/kraven000
