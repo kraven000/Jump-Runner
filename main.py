@@ -63,7 +63,7 @@ try:
                 file_txt[1] = "yes\n"
                 read_write_file("configuration.txt","w",file_txt)
                 del resp
-                del file_txt
+        del file_txt
 
 
     def sound():
@@ -83,7 +83,7 @@ try:
                 file_txt[2] = "yes\n"
                 read_write_file("configuration.txt","w",file_txt)
                 del resp
-                del file_txt
+        del file_txt
 
 
     def highscore():
