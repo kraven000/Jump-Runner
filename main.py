@@ -228,7 +228,6 @@ try:
                         
                         read_write_file("configuration.txt","w",file_txt)
                     
-                    
             else:
                 # Making Game Over screen
                 screen.fill("Yellow")
@@ -287,7 +286,6 @@ try:
         Button(root,text="EXIT",command=exit).place(relheight=0.12,relwidth=0.15,x=345,y=325)
         
         root.mainloop()
-
 
 except Exception as e:
     if platform=="linux":
