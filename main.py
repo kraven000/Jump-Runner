@@ -3,9 +3,10 @@
 
 try:
     import pygame
-    from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox
+    from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox,Frame
     from os import system 
     from sys import platform
+    
 
     def read_write_file(file,mode,text=None):
         if mode=="r":
@@ -18,6 +19,16 @@ try:
             raise TypeError("If you open file in 'w' or 'a'. please specify text." )
     
     
+    def reset_your_highscore():
+        '''It is function which will reset your highscore if User press reset your highscore button.'''
+        
+        reset_highscore = read_write_file("configuration.txt","r")
+        reset_highscore[0] = "0\n"
+        
+        read_write_file("configuration.txt","w",reset_highscore)
+
+        exit()
+
     def about():
         '''Making a About window. If the user press ABout Button. It will show About sections or Credits.'''
         
@@ -89,17 +100,28 @@ try:
     def highscore():
         '''Making a Highscore window. If user press Highscore button, the highscore will be shown.'''
         
+        # GETTING YOUR HIGHSCORE THROUGH CONFIGURATION.TXT
         score = read_write_file("configuration.txt","r")[0].strip("\n")
         
+        # SETTING UP GEOMETRY AND TITLE
         root = Tk()
         root.title("Jump Runner")
         root.minsize(230,130)
         root.maxsize(230,130)
         
-        Label(root,text=score,font="Roman 24 bold",fg="white",bg="black",relief="groove",border=10,borderwidth=10).place(x=0,y=0,relheight=1,relwidth=1)
+        scrollbar = Scrollbar(root)
+        scrollbar.place(x=0,y=200,relheight=0.7,relwidth=0.7)
         
-        # Setting up Button for reset
-        Button(root,text="RESET YOUR HIGHSCORE",bg="light sky blue",fg="black",relief="sunken",borderwidth=3).place(x=18,y=90)
+        l = Listbox(root, font="Roman 20 bold",bg="black",fg="white",xscrollcommand=scrollbar.set)
+        
+        l.insert("end",score)
+        l.pack(fill="both")
+        
+        Button(root, text="RESET YOUR HIGHSCORE", bg="light sky blue", fg="black", relief="sunken", borderwidth=3,command=reset_your_highscore).place(x=10, y=60)
+        
+        scrollbar.config(command=l.xview)
+        
+        root.quit()
         root.mainloop()
 
 
@@ -146,11 +168,12 @@ try:
         gravity = 13
         condition = True
         enemy_speed = 4.0
+        game_start_stop = True
         
-        while True:
+        while game_start_stop:
             for event in pygame.event.get():
                 if event.type==pygame.QUIT:
-                    pygame.quit()
+                    game_start_stop = False
                     
                 if condition:
                     if character_rec.bottom==400:
@@ -167,7 +190,7 @@ try:
                                 jump.play()
                 else:
                     if event.type==pygame.QUIT:
-                        pygame.quit()
+                        game_start_stop = False
 
                     if event.type==pygame.KEYUP:
                             # Making Condition's Default if user restart the game
@@ -250,7 +273,7 @@ try:
             
             pygame.display.update()
             clock.tick(60)
-
+        pygame.quit()
 
     def game_start():
         '''It is the starting Interface of program, where all buttons will be shown.'''
