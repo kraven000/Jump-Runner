@@ -93,11 +93,13 @@ try:
         
         root = Tk()
         root.title("Jump Runner")
-        root.minsize(200,100)
-        root.maxsize(200,100)
+        root.minsize(230,130)
+        root.maxsize(230,130)
         
         Label(root,text=score,font="Roman 24 bold",fg="white",bg="black",relief="groove",border=10,borderwidth=10).place(x=0,y=0,relheight=1,relwidth=1)
         
+        # Setting up Button for reset
+        Button(root,text="RESET YOUR HIGHSCORE",bg="light sky blue",fg="black",relief="sunken",borderwidth=3).place(x=18,y=90)
         root.mainloop()
 
 
@@ -274,16 +276,16 @@ try:
         Button(root,image=sound_image,command=sound).place(height=60,width=60,x=70,y=359)
 
         # Button for Start
-        Button(root,text="START",command=game).place(relheight=0.12,relwidth=0.15,x=345,y=25)
+        Button(root,text="START",relief="sunken",borderwidth=6,command=game).place(relheight=0.12,relwidth=0.15,x=345,y=25)
         
         # Button for About
-        Button(root,text="ABOUT",command=about).place(relheight=0.12,relwidth=0.15,x=345,y=125)
+        Button(root,text="ABOUT",relief="sunken",borderwidth=6,command=about).place(relheight=0.12,relwidth=0.15,x=345,y=125)
         
         # Button for Highscore
-        Button(root,text="HIGHSCORE",command=highscore).place(relheight=0.12,relwidth=0.15,x=345,y=225)
+        Button(root,text="HIGHSCORE",relief="sunken",borderwidth=6,command=highscore).place(relheight=0.12,relwidth=0.15,x=345,y=225)
         
         # Button for Exit
-        Button(root,text="EXIT",command=exit).place(relheight=0.12,relwidth=0.15,x=345,y=325)
+        Button(root,text="EXIT",relief="sunken",borderwidth=6,command=exit).place(relheight=0.12,relwidth=0.15,x=345,y=325)
         
         root.mainloop()
 
