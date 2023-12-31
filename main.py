@@ -5,6 +5,7 @@ try:
     import pygame
     from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox,Frame
     from os import system 
+    from math import ceil
     from sys import platform
     
 
@@ -26,8 +27,9 @@ try:
         reset_highscore[0] = "0\n"
         
         read_write_file("configuration.txt","w",reset_highscore)
-
+        
         exit()
+
 
     def about():
         '''Making a About window. If the user press ABout Button. It will show About sections or Credits.'''
@@ -151,13 +153,13 @@ try:
         # Making Image Surfaces,text:- 
         # Background
         background = pygame.image.load("combined.png").convert_alpha()
-        background_rect = background.get_rect(midbottom=(380,580))
+        background_rect = background.get_rect(topleft=(0,-225))
         
         # Game Characters
         enemy_surface = pygame.image.load("zombie.png")
         enemy_rec = enemy_surface.get_rect(midbottom=(790,400))
         character_surface = pygame.image.load("character.png")
-        character_rec = character_surface.get_rect(midbottom=(10,400))
+        character_rec = character_surface.get_rect(topleft=(10,600))
         
         # Text
         text = pygame.font.Font("ArchitectsDaughter-Regular.ttf",40)
@@ -169,6 +171,10 @@ try:
         condition = True
         enemy_speed = 4.0
         game_start_stop = True
+        
+        # This line is to move your background
+        tiles = ceil(800/background.get_width())+1
+        move = 0
         
         while game_start_stop:
             for event in pygame.event.get():
@@ -201,10 +207,15 @@ try:
                             character_rec.x = 12
 
             if condition:
-                #Static 
-                screen.blit(background,background_rect)
+                # Making Background Move
+                for i in range(0,tiles):
+                    screen.blit(background,(i*background.get_width()+move,-225))
                 
-                #Dynamic
+                move -= 3.5
+                if abs(move)>=background_rect.width:
+                    move = 0
+                
+                #Showing Score Card
                 score_card = text.render(F"SCORE:-{score}",True,"Black")
                 screen.blit(score_card,(500,30))
                 
@@ -214,7 +225,7 @@ try:
                 
                 # It will Gradually Increase Speed Of Characters 
                 if score%4==0 and score!=0:
-                    enemy_speed += (1/3600)
+                    enemy_speed += (1/1000)
                 
                 # Setting Enemy Position to default
                 if enemy_rec.x<=5:
