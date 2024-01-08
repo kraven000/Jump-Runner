@@ -3,7 +3,7 @@
 
 try:
     import pygame
-    from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox,Frame
+    from tkinter import Tk,PhotoImage,Label,Button,messagebox,Scrollbar,Listbox
     from os import system 
     from math import ceil
     from sys import platform
