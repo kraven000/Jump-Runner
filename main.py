@@ -324,10 +324,10 @@ try:
         root.mainloop()
 
 except Exception as e:
-    if platform=="linux":
-        system("pip3 install -r requirement.txt")
+    if platform=="win32" or platform=="win64":
+        system("pip install -r requirement.txt")
     else:
-        system("pip install -r requirements.txt")
+        system("pip3 install -r requirements.txt")
     print()
     print()
     print("Rerun your Program\nIf you still encounter this error reinstall python and than try")
