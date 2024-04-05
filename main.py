@@ -22,10 +22,10 @@ try:
     
     def reset_your_highscore():
         """It is function which will reset your highscore if User press reset your highscore button."""
-
+        
         reset_highscore = read_write_file("configuration.txt", "r")
         reset_highscore[0] = "0\n"
-
+        
         read_write_file("configuration.txt", "w", reset_highscore)
         highscore_root.destroy()
     
@@ -325,28 +325,28 @@ try:
         root.maxsize(749, 419)
         root.title("Jump Runner")
         root.iconphoto(False, PhotoImage(file="icon.png"))
-        
+
         # Setting Up Background Image
         background_image = PhotoImage(file="background.png")
         Label(root, image=background_image).place(x=0, y=0)
-        
+
         # Button for Music
         music_image = PhotoImage(file="music_image.png")
         Button(root, image=music_image, command=music).place(
             height=60, width=60, x=0, y=359
         )
-        
+
         # Button for Sound
         sound_image = PhotoImage(file="sound_image.png")
         Button(root, image=sound_image, command=sound).place(
             height=60, width=60, x=70, y=359
         )
-        
+
         # Button for Start
         Button(root, text="START", relief="sunken", borderwidth=6, command=game).place(
             relheight=0.12, relwidth=0.15, x=345, y=25
         )
-        
+
         # Button for About
         Button(root, text="ABOUT", relief="sunken", borderwidth=6, command=about).place(
             relheight=0.12, relwidth=0.15, x=345, y=125
@@ -356,12 +356,12 @@ try:
         Button(
             root, text="HIGHSCORE", relief="sunken", borderwidth=6, command=highscore
         ).place(relheight=0.12, relwidth=0.15, x=345, y=225)
-        
+
         # Button for Exit
         Button(root, text="EXIT", relief="sunken", borderwidth=6, command=exit).place(
             relheight=0.12, relwidth=0.15, x=345, y=325
         )
-        
+
         root.mainloop()
 
 except Exception as e:
